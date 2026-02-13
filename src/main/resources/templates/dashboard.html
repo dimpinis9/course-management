@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ErasMatch</title>
+    <link rel="stylesheet" th:href="@{/css/course-management.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="app-title">🎓 ErasMatch</h1>
+    <h2>Host University Dashboard</h2>
+
+    <p class="info-text">
+        Welcome, <strong th:text="${username}">User</strong>!
+    </p>
+
+    <div class="option-card" onclick="window.location.href='/course-management/courses/menu'">
+        <h3>📚 Course Management</h3>
+        <p>Add and manage host university courses for Erasmus.</p>
+    </div>
+
+    <div class="option-card" onclick="alert('Feature coming soon!')">
+        <h3>📝 Evaluate Requests</h3>
+        <p>View student applications and evaluate course matching.</p>
+    </div>
+
+    <div class="option-card" onclick="alert('Feature coming soon!')">
+        <h3>📤 Forward Applications</h3>
+        <p>Forward the final reviewed applications to authorities.</p>
+    </div>
+
+    <button class="back-link-btn" onclick="window.location.href='/course-management/logout'">
+        Logout
+    </button>
+</div>
+
+</body>
+</html>
+

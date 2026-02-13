@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErasMatch - Course Management System</title>
+    <link rel="stylesheet" th:href="@{/css/course-management.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="app-title">🎓 ErasMatch</h1>
+    <h2>Course Management System</h2>
+
+    <p class="info-text">
+        Welcome to the ErasMatch Course Management System.<br>
+        Manage your Erasmus courses efficiently.
+    </p>
+
+    <button class="primary-btn" onclick="window.location.href='/course-management/login'">
+        Login
+    </button>
+
+    <div style="margin-top: 2rem; padding: 1rem; background: #f5f6ff; border-radius: 0.5rem;">
+        <h3 style="color: #2e3a87; margin-bottom: 0.5rem;">Test Credentials</h3>
+        <p style="color: #555; font-size: 0.9rem; margin: 0;">
+            <strong>Username:</strong> host<br>
+            <strong>Password:</strong> host123
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
+

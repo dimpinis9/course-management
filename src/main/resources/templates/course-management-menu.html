@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErasMatch | Course Management</title>
+    <link rel="stylesheet" th:href="@{/css/course-management.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="app-title">ErasMatch</h1>
+    <h2>Course Management</h2>
+
+    <p class="info-text">
+        You currently have <strong th:text="${courseCount}">0</strong> courses in your catalog.
+    </p>
+
+    <!-- Option Cards -->
+    <div class="option-card" onclick="window.location.href='/course-management/courses/add'">
+        <h3>📝 Add New Course</h3>
+        <p>Create a new course entry for your university</p>
+    </div>
+
+    <div class="option-card" onclick="window.location.href='/course-management/courses/list'">
+        <h3>📚 View & Manage Courses</h3>
+        <p>View, edit, or delete existing courses</p>
+    </div>
+
+    <button class="back-link-btn" onclick="window.location.href='/course-management/'">
+        ← Back to Dashboard
+    </button>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErasMatch | My Courses</title>
+    <link rel="stylesheet" th:href="@{/css/course-management.css}">
+</head>
+<body>
+
+<div class="container-wide">
+
+    <button class="back-btn" onclick="window.location.href='/course-management/courses/menu'">
+        ← Back to Course Management
+    </button>
+
+    <h1>My Courses</h1>
+
+    <!-- Success Message -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Error Message -->
+    <div th:if="${errorMessage}" class="alert alert-error">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Empty State -->
+    <div th:if="${courses == null || courses.isEmpty()}" class="empty">
+        <p>You have not added any courses yet.</p>
+        <button class="primary-btn" onclick="window.location.href='/course-management/courses/add'">
+            Add Your First Course
+        </button>
+    </div>
+
+    <!-- Course Table -->
+    <div th:unless="${courses == null || courses.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Course Name</th>
+                    <th>Code</th>
+                    <th>ECTS</th>
+                    <th>Semester</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.dept}">Computer Science</td>
+                    <td th:text="${course.courseName}">Algorithms</td>
+                    <td th:text="${course.code ?: '-'}">CS101</td>
+                    <td th:text="${course.ects}">6</td>
+                    <td th:text="${course.semester}">Fall</td>
+                    <td class="action-cell">
+                        <button class="edit-btn"
+                                th:data-course-id="${course.courseId}"
+                                onclick="window.location.href='/course-management/courses/edit/' + this.getAttribute('data-course-id')">
+                            Edit
+                        </button>
+                        <button class="delete-btn"
+                                th:data-course-id="${course.courseId}"
+                                th:data-course-name="${course.courseName}"
+                                onclick="confirmDelete(this.getAttribute('data-course-id'), this.getAttribute('data-course-name'))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    function confirmDelete(courseId, courseName) {
+        if (confirm('Are you sure you want to delete the course "' + courseName + '"?')) {
+            // Create a form and submit
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/course-management/courses/delete/' + courseId;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+
+</body>
+</html>
+

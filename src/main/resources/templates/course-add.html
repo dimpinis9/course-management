@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErasMatch | Add Course</title>
+    <link rel="stylesheet" th:href="@{/css/course-management.css}">
+</head>
+<body>
+
+<header>
+    <button class="back-btn" onclick="window.location.href='/course-management/courses/menu'">
+        Back to Menu
+    </button>
+</header>
+
+<div class="container">
+    <h1 class="app-title">ErasMatch</h1>
+    <h2>Add New Course</h2>
+
+    <!-- Error Message -->
+    <div th:if="${errorMessage}" class="alert alert-error">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Success Message -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <form th:action="@{/courses/add}" th:object="${courseDTO}" method="POST">
+
+        <label for="dept">Department *</label>
+        <input type="text"
+               id="dept"
+               th:field="*{dept}"
+               placeholder="e.g. Computer Science"
+               required>
+        <span th:if="${#fields.hasErrors('dept')}"
+              th:errors="*{dept}"
+              class="error-message"></span>
+
+        <label for="courseName">Course Name *</label>
+        <input type="text"
+               id="courseName"
+               th:field="*{courseName}"
+               placeholder="e.g. Advanced Algorithms"
+               required>
+        <span th:if="${#fields.hasErrors('courseName')}"
+              th:errors="*{courseName}"
+              class="error-message"></span>
+
+        <label for="code">Course Code</label>
+        <input type="text"
+               id="code"
+               th:field="*{code}"
+               placeholder="e.g. CS301">
+
+        <label for="ects">ECTS *</label>
+        <input type="number"
+               id="ects"
+               th:field="*{ects}"
+               min="1"
+               max="10"
+               required
+               placeholder="1-10"
+               oninput="if (this.value > 10) this.value = 10; if (this.value < 1) this.value = 1;">
+        <span th:if="${#fields.hasErrors('ects')}"
+              th:errors="*{ects}"
+              class="error-message"></span>
+
+        <label for="semester">Semester *</label>
+        <select id="semester" th:field="*{semester}" required>
+            <option value="">-- Select Semester --</option>
+            <option value="Fall">Fall</option>
+            <option value="Spring">Spring</option>
+        </select>
+        <span th:if="${#fields.hasErrors('semester')}"
+              th:errors="*{semester}"
+              class="error-message"></span>
+
+        <button type="submit" class="primary-btn">Add Course</button>
+    </form>
+</div>
+
+</body>
+</html>
+
