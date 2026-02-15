@@ -1,109 +1,179 @@
-# Course Management System - Erasmus+ Application
+# Course Management System
 
-Spring Boot application για διαχείριση μαθημάτων πανεπιστημίου υποδοχής (Host University).
+Spring Boot MVC application για τη διαχείριση μαθημάτων Erasmus (Course Management Use Case).
 
-## 🚀 Γρήγορη Εκκίνηση
+## 📋 Περιγραφή
 
-### Απαιτήσεις
-- Java 17+
-- Maven 3.x
-- MySQL Database
+Το σύστημα επιτρέπει στον εκπρόσωπο του πανεπιστημίου υποδοχής (Host University Representative) να:
+- Καταχωρίσει νέα μαθήματα
+- Προβάλλει τη λίστα των διαθέσιμων μαθημάτων
+- Επεξεργαστεί υπάρχοντα μαθήματα
+- Διαγράψει μαθήματα με επιβεβαίωση
 
-### Εγκατάσταση
+## 🛠️ Τεχνολογίες
 
-1. **Clone το repository**
+- **Spring Boot 4.0.2** (Spring MVC)
+- **Java 22**
+- **MySQL 5.6+** (Remote Database)
+- **Thymeleaf** (Template Engine)
+- **Hibernate/JPA** (ORM)
+- **Maven** (Build Tool)
+- **Lombok** (Code Generation)
+
+## 🚀 Εγκατάσταση & Εκτέλεση
+
+### Προαπαιτούμενα
+- Java 22 ή νεότερη
+- Maven 3.6+
+- Πρόσβαση στη remote MySQL database
+
+### Βήματα Εκτέλεσης
+
+1. **Clone το project**
    ```bash
-   git clone <repository-url>
-   cd course-management
+   cd C:\Users\dimpi\ismgroup11\course-management
    ```
 
-2. **Ρύθμιση Database Credentials**
-   
-   Αντέγραψε το template file:
+2. **Build το project**
    ```bash
-   cp src/main/resources/application-secrets.yaml.template src/main/resources/application-secrets.yaml
-   ```
-   
-   Επεξεργάσου το `application-secrets.yaml` και συμπλήρωσε τα credentials της βάσης:
-   ```yaml
-   spring:
-     datasource:
-       url: jdbc:mysql://YOUR_HOST:3306/YOUR_DATABASE?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
-       username: YOUR_USERNAME
-       password: YOUR_PASSWORD
+   mvn clean install
    ```
 
-3. **Εκτέλεση εφαρμογής**
+3. **Τρέξε την εφαρμογή**
    ```bash
    mvn spring-boot:run
    ```
 
-4. **Πρόσβαση στην εφαρμογή**
+4. **Άνοιξε το browser**
    ```
-   URL: http://localhost:8081/course-management
+   http://localhost:8081/course-management/
    ```
 
-## 🔐 Login Credentials
+## 🔑 Login Credentials
 
-Test users που δημιουργούνται αυτόματα:
+### Test Account
+- **Username:** `host`
+- **Password:** `host123`
 
-| Username | Password | Τύπος |
-|----------|----------|-------|
-| host     | host123  | Host University Representative |
-| testhost | test123  | Host University Representative |
+## 📍 Available Routes
 
-## 📁 Δομή Project
-
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/example/course_management/
-│   │       ├── config/          # Configuration & Data Initialization
-│   │       ├── controller/      # REST & MVC Controllers
-│   │       ├── model/          # JPA Entities
-│   │       ├── repository/     # Data Access Layer
-│   │       └── service/        # Business Logic
-│   └── resources/
-│       ├── templates/          # Thymeleaf Templates
-│       ├── static/            # CSS, JS, Images
-│       ├── application.yaml   # Main Configuration
-│       └── application-secrets.yaml  # DB Credentials (gitignored)
-```
-
-## 🎯 Λειτουργίες
+### Authentication
+| Route | Method | Περιγραφή |
+|-------|--------|-----------|
+| `/` | GET | Home/Login page |
+| `/login` | GET/POST | Login form |
+| `/dashboard` | GET | Dashboard μετά το login |
+| `/logout` | GET | Logout |
 
 ### Course Management
-1. **Προβολή Μαθημάτων** - Λίστα με όλα τα διαθέσιμα μαθήματα
-2. **Προσθήκη Μαθήματος** - Καταχώρηση νέου μαθήματος
-3. **Επεξεργασία Μαθήματος** - Ενημέρωση στοιχείων μαθήματος
-4. **Διαγραφή Μαθήματος** - Αφαίρεση μαθήματος με confirmation
+| Route | Method | Περιγραφή |
+|-------|--------|-----------|
+| `/courses/menu` | GET | Course management menu |
+| `/courses/add` | GET | Φόρμα προσθήκης μαθήματος |
+| `/courses/add` | POST | Αποθήκευση νέου μαθήματος |
+| `/courses/list` | GET | Λίστα όλων των μαθημάτων |
+| `/courses/edit/{id}` | GET | Επεξεργασία μαθήματος |
+| `/courses/update/{id}` | POST | Ενημέρωση μαθήματος |
+| `/courses/delete/{id}` | POST | Διαγραφή μαθήματος |
 
 ## 🗄️ Database
 
-Η εφαρμογή χρησιμοποιεί MySQL database. Οι πίνακες δημιουργούνται αυτόματα με το Hibernate (`ddl-auto: update`).
+### Connection Details
+- **Host:** 195.251.249.131:3306
+- **Database:** ismgroup11
+- **User:** ismgroup11
 
-### Πίνακες
+### Tables
 - `users` - Χρήστες συστήματος
 - `host_universities` - Πανεπιστήμια υποδοχής
 - `courses` - Μαθήματα
 
-## ⚠️ Security Note
+## 📦 Project Structure
 
-**ΣΗΜΑΝΤΙΚΟ**: Τα database credentials βρίσκονται στο `application-secrets.yaml` που είναι στο `.gitignore`. 
+```
+course-management/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/course_management/
+│   │   │   ├── config/          # Configuration classes
+│   │   │   ├── controller/      # MVC Controllers
+│   │   │   ├── dto/             # Data Transfer Objects
+│   │   │   ├── model/           # JPA Entities
+│   │   │   ├── repository/      # Spring Data Repositories
+│   │   │   └── service/         # Business Logic
+│   │   └── resources/
+│   │       ├── templates/       # Thymeleaf templates
+│   │       ├── static/          # CSS, JS, images
+│   │       └── application.yaml # Configuration
+├── pom.xml
+└── README.md
+```
 
-**ΜΗΝ** κάνεις commit το αρχείο `application-secrets.yaml` στο Git!
+## 🎨 Features
 
-## 🛠️ Technologies
+### ✅ Implemented
+- [x] User authentication (simple session-based)
+- [x] Course CRUD operations
+- [x] Responsive UI με CSS Grid/Flexbox
+- [x] Validation (Spring Validation)
+- [x] Confirmation dialogs για διαγραφή
+- [x] Auto-loading test data on startup
+- [x] Session management
+- [x] Error handling
 
-- **Spring Boot 4.0.2** - Framework
-- **Spring Data JPA** - ORM
-- **Hibernate** - JPA Implementation
-- **MySQL** - Database
-- **Thymeleaf** - Template Engine
-- **Maven** - Build Tool
+### 📝 Course Fields
+- **Department** (Τμήμα)
+- **Course Name** (Όνομα μαθήματος)
+- **Course Code** (Κωδικός - optional)
+- **ECTS** (1-10 credits)
+- **Semester** (Fall/Spring/Summer - optional)
 
-## 📝 License
+## 🧪 Test Data
 
-[Προσθέστε το license σας εδώ]
+Κατά την εκκίνηση, το σύστημα φορτώνει αυτόματα:
+- 2 test users (`host`, `testhost`)
+- 2 universities (AUEB, TUM)
+- 5 sample courses
+
+## ⚙️ Configuration
+
+### Server
+- **Port:** 8081
+- **Context Path:** `/course-management`
+- **Session Timeout:** 30 minutes
+
+### Database
+- **Auto-DDL:** `update` (δημιουργεί/ενημερώνει tables αυτόματα)
+- **Show SQL:** Enabled (για debugging)
+
+## 🐛 Troubleshooting
+
+### Port already in use
+```bash
+# Βρες την process που χρησιμοποιεί το port 8081
+netstat -ano | findstr :8081
+# Σκότωσε το process
+taskkill /PID <PID> /F
+```
+
+### Database connection issues
+- Έλεγξε ότι το MySQL server είναι διαθέσιμο
+- Έλεγξε τα credentials στο `application.yaml`
+
+### Thymeleaf template errors
+- Έλεγξε ότι τα templates βρίσκονται στο `src/main/resources/templates/`
+- Clear το Maven cache: `mvn clean`
+
+## 📄 License
+
+ISM Group 11 - University Project 2026
+
+## 👥 Authors
+
+ISM Group 11
+- Course Management Module Implementation
+
+---
+
+**Last Updated:** February 2026
 

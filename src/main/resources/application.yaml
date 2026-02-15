@@ -3,8 +3,10 @@ spring:
     name: course-management
 
   # MySQL Database Configuration (Remote Database)
-  # Τα credentials βρίσκονται στο application-secrets.yaml (gitignored)
   datasource:
+    url: jdbc:mysql://195.251.249.131:3306/ismgroup11?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+    username: ismgroup11
+    password: q7oueu
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA Configuration
